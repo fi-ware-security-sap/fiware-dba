@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	 xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	 xmlns:cxf="http://cxf.apache.org/core"
+	 xmlns:util="http://www.springframework.org/schema/util"
+
+	  xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/jaxrs
+http://cxf.apache.org/schemas/jaxrs.xsd
+http://cxf.apache.org/jaxws
+http://cxf.apache.org/schemas/jaxws.xsd">
+	
+	
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+<!-- 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />  -->
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	 	<!--
+	<jaxws:endpoint 
+		xmlns:tns="http://ws.dpre.sap.com/"
+		id="disclosurepolicyriskevaluatorws2" 
+		implementor="#disclosurePolicyRiskEvaluatorWS_Bean"
+		endpointName="tns:DisclosurePolicyRiskEvaluatorWSPort"
+		serviceName="tns:DbAnonymizer" address="/DisclosurePolicyRiskEvaluatorWSPort">
+ 	
+		 	<jaxws:features>
+				<bean class="org.apache.cxf.feature.LoggingFeature" />
+			</jaxws:features> 
+		
+	</jaxws:endpoint>
+-->
+	<bean id="disclosurePolicyRiskEvaluatorWS_Bean" class="com.sap.dpre.ws.DbAnonymizerJAX_WS_Impl" scope="prototype" >
+		<constructor-arg type="com.sap.dpre.ws.DBA_factory" ref="aDBA_factory_instance"></constructor-arg>
+	</bean>
+	
+	<!-- take the same values as for context.xml -->
+	<bean id="aDBA_factory_instance" class="com.sap.dpre.ws.DBA_factory" scope="prototype">
+		<constructor-arg type="String" ><value>census</value></constructor-arg>
+		<constructor-arg type="String" ><value>census</value></constructor-arg>
+	</bean>
+   	
+   	<bean 
+   	    id="jaxbProvider" 
+   	    class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" 
+   	    scope="prototype">
+   			<property name="unmarshallAsJaxbElement" value="true"/>
+	   		<property name="marshallAsJaxbElement" value="true"/>
+   			<!-- <property name="schemaLocations" ref="theSchemaLocation"/> -->
+   	</bean>
+   	
+   	
+
+	<!-- JAX-RS snippet -->
+	<jaxrs:server id="DBA" address="/DBA">
+		<jaxrs:properties>
+			<entry key="mtom-enabled" value="true"/>
+		</jaxrs:properties>
+<!-- --> 		<jaxrs:extensionMappings>
+			<entry key="xml" value="application/xml" />
+    	</jaxrs:extensionMappings>
+    	<jaxrs:providers>
+		    <ref bean="jaxbProvider"/>
+    	</jaxrs:providers>   <!-- --> 
+
+
+ 
+		<jaxrs:serviceBeans>
+			<ref bean="disclosurePolicyRiskEvaluatorRSbean" />
+		</jaxrs:serviceBeans>
+
+		
+	 	<jaxrs:features>
+			<!-- enable here for network message logging   
+			<cxf:logging/>
+			 -->
+		</jaxrs:features>
+	</jaxrs:server>
+
+	<!--
+	<bean id="discPolicy" class="org.apache.cxf.jaxrs.spring.SpringResourceFactory">
+		<property name="beanId" value="disclosurePolicyRiskEvaluatorRSbean" />
+	</bean>
+	
+  
+	<bean id="dbaFactory" class="org.apache.cxf.jaxrs.spring.SpringResourceFactory">
+		<property name="beanId" value="aDBA_factory_instance" />
+	</bean>
+	 -->
+	
+	
+	<bean 
+	    id="disclosurePolicyRiskEvaluatorRSbean" 
+	    class="com.sap.dpre.ws.DbAnonymizerJAX_RS_Impl" 
+	    scope="prototype" >
+			<constructor-arg type="com.sap.dpre.ws.DBA_factory" ref="aDBA_factory_instance"></constructor-arg>
+	</bean>
+	<!-- End of JAX-RS snippet -->
+	
+   	<!--  <bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.JSONProvider"/>  --> 
+	 
+	 
+</beans>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="Type">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="identifier" />
+				<xs:enumeration value="sensitive" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+	<xs:element name="Column">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Name" type="xs:string" />
+				<xs:element ref="Type" />
+				<xs:element name="Hide" type="xs:boolean" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Policy">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Column" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+ 
+</xs:schema>
+

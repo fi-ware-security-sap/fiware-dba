@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="Column">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ColumnId" type="xs:long" />
+				<xs:element name="Risk" type="xs:float" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="RiskColumnResult">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Column" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+ 
+</xs:schema>
+
