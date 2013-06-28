@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
-	<!-- Specify a JDBC datasource -->
+	<!-- Specify a JDBC datasource, by modifying a.b.c.d 
+	with correct URL, as well as username and password,
+	if desired -->
 
 
 
@@ -10,7 +12,7 @@
 				username="root" 
  
 				driverClassName="com.mysql.jdbc.Driver"
-				url="jdbc:mysql://192.168.247.2:3306/census"
+				url="jdbc:mysql://a.b.c.d:3306/census"
 				maxActive="10" 
 				maxIdle="4"
 				removeAbandoned="true"
@@ -18,18 +20,5 @@
 				logAbandoned="true"
 	 			validationQuery="select 1" 
 				/>
-
-	<!--
-					password="admin" 			
-					url="jdbc:mysql://frncew000002.dhcp.ncel.sap.corp:3306/census"
-	
-		removeAbandoned="true"
-				removeAbandonedTimeout="60" 
-				logAbandoned="true"
-	 				validationQuery="select 1" -->
-	
-	<!-- <Resource name="jdbc/censusdb" auth="Container" type="javax.sql.DataSource" 
-		username="census" password="census" driverClassName="com.mysql.jdbc.Driver" 
-		url="jdbc:mysql://10.55.133.203:3306/census" maxActive="10" maxIdle="4" /> -->
 
 </Context>
