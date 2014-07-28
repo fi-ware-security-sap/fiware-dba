@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="FI-WARE DBA : This is DBA, an implementation of FI-WARE DB Anonymizer Generic Enabler, please check: http://wiki.fi-ware.eu/FIWARE.OpenSpecification.Security.Optional_Security_Enablers.DBAnonymizer" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>FI-WARE DBA</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/fi-ware-security-sap/fiware-dba">View on GitHub</a>
+
+          <h1 id="project_title">FI-WARE DBA</h1>
+          <h2 id="project_tagline">This is DBA, an implementation of FI-WARE DB Anonymizer Generic Enabler, please check: http://wiki.fi-ware.eu/FIWARE.OpenSpecification.Security.Optional_Security_Enablers.DBAnonymizer</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/fi-ware-security-sap/fiware-dba/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/fi-ware-security-sap/fiware-dba/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="welcome-to-dba-the-fi-ware-db-anonymizer-generic-enabler-reference-implementation" class="anchor" href="#welcome-to-dba-the-fi-ware-db-anonymizer-generic-enabler-reference-implementation"><span class="octicon octicon-link"></span></a>Welcome to DBA, the FI-WARE DB Anonymizer Generic Enabler reference implementation.</h1>
+
+<p>This project hosts the source code of DBA. This code has been developed thanks to the support of the FI-WARE project, an initiative funded by the European Commission. Please refer to the <a href="http://www.fi-ware.org">FI-WARE website</a> for more information. </p>
+
+<p>DBA is a service that helps in data disclosure activities, and in particular when considering, evaluating and applying anonymization strategies. DB Anonymizer DBA GE Reference implementation is designed to be easily reused by other services, compositions or applications. </p>
+
+<p>DBA is an implementation of the DB Anonymizer GE specification.</p>
+
+<h3>
+<a name="why-do-i-need-dba" class="anchor" href="#why-do-i-need-dba"><span class="octicon octicon-link"></span></a>Why do I need DBA?</h3>
+
+<p>DBA permits to understand if a certain anonymization policy for a dataset should be considered safe or not. The service offers a function that calculates a value, that represents the possibility of data that an attacker can reconstruct from an anonymized dataset content (that is, the re-identification risk).</p>
+
+<h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<h3>
+<a name="quick-reference-guide" class="anchor" href="#quick-reference-guide"><span class="octicon octicon-link"></span></a>Quick Reference Guide</h3>
+
+<p>DBA has a very simple API. Its main functionality can be used through two simple methods, one to submit a policy to be analysed (together with its associated dataset), the other to retrieve the computation result. Other functionalities exist, please refer to <a href="http://forge.fi-ware.eu/plugins/mediawiki/wiki/fiware/index.php/DB_Anonymizer_GE_-_User_and_Programmer_Guide#Developer_Guide">this link</a> for a list of functionalities and a more detailed explanation.</p>
+
+<p>In this example, only the main functionality is demonstrated, the others can be invoked in a similar way.</p>
+
+<ol>
+<li>submitting a policy:</li>
+</ol><pre><code>curl \ 
+&gt; -F "policyFile=@.xml" \
+&gt; -F "dbDump=@.zip" \
+&gt; -F "submit=Submit" https://[server URL]/[application path]/DBA/evaluatePolicy 
+</code></pre>
+
+<ol>
+<li>retrieving re-identification risk for that policy:</li>
+</ol><pre><code>curl https://[server URL]/[application path]/DBA/getPolicyResult/[GID returned by the previous call]
+</code></pre>
+
+<h2>
+<a name="manuals" class="anchor" href="#manuals"><span class="octicon octicon-link"></span></a>Manuals</h2>
+
+<p>Please refer to the <a href="http://forge.fi-ware.eu/plugins/mediawiki/wiki/fiware/index.php/Materializing_Security_in_FI-WARE#DB_Anonymizer_.28Optional_Security_Enabler.29">DB Anonymizer FI-WARE page</a> and especially to <a href="http://forge.fi-ware.eu/plugins/mediawiki/wiki/fiware/index.php/DB_Anonymizer_GE_-_User_and_Programmer_Guide">DB Anonymizer User and Programmer Guide</a> for more information.</p>
+
+<p>Please also find the <a href="http://catalogue.fi-ware.eu/sites/default/files/storage/enablers/20121203-FI-WARE-DBAnonymizer-GE.pdf">slides</a> that were used for DB Anonymizer DBA GE Reference implementation webminars.</p>
+
+<p>In using the provided instance, it is important to connect to the SSL-enabled endpoint to ensure the highest confidentiality; however, for testing purposes:</p>
+
+<ul>
+<li>a standard HTTP (and not HTTPS) endpoint is made available, at http://[server URL]/services/DBA</li>
+<li>an HTML front-end is presented, just browse to: https://[server URL]</li>
+</ul><h2>
+<a name="want-to-know-more" class="anchor" href="#want-to-know-more"><span class="octicon octicon-link"></span></a>Want to know more?</h2>
+
+<p>More information on DBA and on the DB Anonymizer GE can be found on the <a href="http://forge.fi-ware.eu/plugins/mediawiki/wiki/fiware/index.php/FIWARE.OpenSpecification.Security.Optional_Security_Enablers.DBAnonymizer">DB Anonymizer GE Open Specification page</a>.</p>
+
+<h2>
+<a name="authors" class="anchor" href="#authors"><span class="octicon octicon-link"></span></a>Authors</h2>
+
+<p><a href="https://github.com/fdicerbo">Francesco Di Cerbo</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">FI-WARE DBA maintained by <a href="https://github.com/fi-ware-security-sap">fi-ware-security-sap</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
